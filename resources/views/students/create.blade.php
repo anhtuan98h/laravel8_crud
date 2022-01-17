@@ -58,9 +58,7 @@
               </select>
               <small class="text-danger">{{ $errors->first('faculty_id') }}</small>
             </div> <br>
-            <div class="form-group mb-3">
-              <button type="submit" class="btn btn-primary">Save Student</button>
-            </div>
+           
 
 
 
@@ -126,8 +124,8 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <div class="form-group">
-                    <input type="submit" name="" value="Submit" class="btn btn-success">
+                  <div class="form-group mb-3">
+                    <input type="submit" name="" value="Save" class="btn btn-success">
                   </div>
                 </td>
               </tr>
