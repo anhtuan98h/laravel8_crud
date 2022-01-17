@@ -123,14 +123,13 @@
               <tr>
                 <td></td>
                 <td></td>
-                <td>
-                  <div class="form-group mb-3">
-                    <input type="submit" name="" value="Save" class="btn btn-success">
-                  </div>
-                </td>
+                
               </tr>
             </tfoot>
           </table>
+            <div class="form-group mb-3">
+              <button type="submit" class="btn btn-primary">Save Student</button>
+            </div>
         </div>
       </form>
 
