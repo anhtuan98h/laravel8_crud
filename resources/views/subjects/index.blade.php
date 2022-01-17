@@ -9,10 +9,10 @@
         <div class="card">
           <div class="card-body">
             <div class="card-header text-center text-danger text-bold">
-              Laravel Faculty VIEW
+              Laravel Subject VIEW
 
             </div>
-            <a href="{{ url('/faculty/create') }}" class="btn btn-success float-end" title="Add New Contact">
+            <a href="{{ url('/subject/create') }}" class="btn btn-success float-end" title="Add New Contact">
               <i class="fa fa-plus" aria-hidden="true"></i> New
             </a>
             <br />
@@ -33,15 +33,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($faculties as $item)
+                  @foreach($subjects as $item)
                   <tr>
-                    <td align="center" class="table-light">{{ $item->id }}</td>
-                    <td align="center" class="table-light">{{ $item->faculty_name }}</td>
+                    <td align="center" class="table-light">{{ $item->subject_id }}</td>
+                    <td align="center" class="table-light">{{ $item->subject_name }}</td>
 
                     <td align="center" class="table-light">
-                      <a href="{{ url('/faculty/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="far fa-eye"></i></button></a>
-                      <a href="{{ url('/faculty/' . $item->id . '/edit') }}" title="Edit Student"><button class="btn btn-success btn-sm"><i class="fad fa-pencil-alt"></i></button></a>
-                      {!! Form::open(['url' => '/faculty' . '/' . $item->id,'accept-charset'=>'UTF-8','style'=>'display:inline']) !!}
+                      <a href="{{ url('/subject/' . $item->subject_id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="far fa-eye"></i></button></a>
+                      <a href="{{ url('/subject/' . $item->subject_id . '/edit') }}" title="Edit Student"><button class="btn btn-success btn-sm"><i class="fad fa-pencil-alt"></i></button></a>
+                      {!! Form::open(['url' => '/subject' . '/' . $item->subject_id,'accept-charset'=>'UTF-8','style'=>'display:inline']) !!}
                       <!-- <form method="POST" action="{{ url('/faculty' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline"> -->
                       {{ method_field('DELETE') }}
                       {{ csrf_field() }}
@@ -56,7 +56,7 @@
               </table>
               <div class="d-flex">
 
-                {{$faculties-> links()}}
+                {{$subjects-> links()}}
 
 
               </div>

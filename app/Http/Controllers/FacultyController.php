@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Illuminate\Http\Validator;
+use Symfony\Component\Console\Input\Input;
 
 class FacultyController extends Controller
 {
@@ -14,9 +16,10 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        $faculties = Faculty::paginate(3);
+        $faculties = Faculty::paginate(5);
         return view('faculties.index')->with('faculties', $faculties);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,9 +39,16 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        Faculty::create($input);
-        return redirect('faculty')->with('flash_message', 'Faculty Addedd!');
+
+        $request->validate([
+            'faculty_name' => 'required|unique:faculties|max:255'
+        ]);
+        $faculty = new Faculty();
+        $faculty->faculty_name = $request->input('faculty_name');
+        $faculty->save();
+        return redirect()->route('faculty.index')
+            ->with('success', 'Faculty has been updated successfully.');
+        // return redirect('faculty')->with('flash_message', 'Faculty Addedd!');
     }
 
     /**
@@ -74,10 +84,16 @@ class FacultyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $faculty = Faculty::find($id);
+
+        $request->validate([
+            'faculty_name' => "required|unique:faculties,faculty_name,$id"
+        ]);
+        $faculty = Faculty::findOrFail($id);
+        // $faculty = new Faculty;
         $input = $request->all();
+        $faculty->faculty_name = $request->faculty_name;
         $faculty->update($input);
-        return redirect('faculty')->with('flash_message', 'faculty Updated!');
+        return redirect()->route('faculty.index')->with('success', 'Faculty has been updated successfully.');
     }
 
     /**
@@ -89,6 +105,7 @@ class FacultyController extends Controller
     public function destroy($id)
     {
         Faculty::destroy($id);
-        return redirect('faculty')->with('flash_message', 'faculty deleted!');
+        return redirect()->route('faculty.index')
+            ->with('success', 'Faculty has been deleted successfully');
     }
 }
