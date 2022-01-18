@@ -45,15 +45,19 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+         $request->validate([
             'student_name' => 'required|unique:students|max:255',
             'image' => 'required|mimes:jpeg,jpg,png,gif',
             'birthday' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
             'gender'   => 'required',
-            'faculty_id'  => 'required'
+            'faculty_id'  => 'required',
         ]);
+
+        $input = $request->all();
+
+        $id = Student::create($input)->id;
         $student = new Student;
         $student->student_name = $request->student_name;
         if ($request->hasfile('image')) {
@@ -63,12 +67,24 @@ class StudentController extends Controller
             $file->move('uploads/students/', $filename);
             $student->image = $filename;
         }
+
         $student->birthday = $request->birthday;
         $student->address = $request->address;
         $student->phone_number = $request->phone_number;
         $student->gender = $request->gender;
         $student->faculty_id = $request->faculty_id;
-        $student->save();
+        if (count($request->mark) > 0) {
+            foreach ($request->mark as  $item => $v) {
+                $data = array(
+
+                    'student_id' => $id,
+                    'subject_id' => $request->subject_id,
+                    'mark' => $request->mark[$item]
+                );
+            }
+        }
+
+        Mark::insert($data);
         return redirect()->route('student.index')->with('success', 'Student Image has been created successfully');
     }
 
