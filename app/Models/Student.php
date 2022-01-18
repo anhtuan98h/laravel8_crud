@@ -18,4 +18,19 @@ class Student extends Model
         'gender',
         'faculty_id',
     ];
+    
+     public function faculty()
+    {
+        return $this->belongsTo('App\Models\Faculty');
+    }
+
+    public function mark()
+    {
+        return $this->hasMany('App\Models\Mark');
+    }
+
+    public function subject()
+    {
+        return $this->hasMany('App\Models\Subject');
+    }
 }
